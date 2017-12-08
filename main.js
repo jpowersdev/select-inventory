@@ -15,8 +15,8 @@ app.on('ready', () => {
 
     let mainWindow = new BrowserWindow({width: 800, height: 600})
 
-    mainWindow.loadURL('http://localhost:8080/')
-    mainWindow.toggleDevTools();
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+    // mainWindow.toggleDevTools();
 
 })
 

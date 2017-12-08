@@ -119,11 +119,9 @@ router.route('/items')
 app.use('/api', router);
 //starts the server and listens for requests
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '/app/index.html'));
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
-
-app.use(path.join(__dirname, '/app/build'))
 
 app.listen(port, function(err) {
     if (err) {
