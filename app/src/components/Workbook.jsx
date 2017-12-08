@@ -2,6 +2,7 @@ import React, {Component}  from 'react'
 import { dialog } from 'electron';
 import styles from '../styles/local.css'
 import XLSX from 'xlsx'
+import Inspector from 'react-inspector'
 
 export default class Workbook extends Component {
     constructor() {
@@ -9,106 +10,54 @@ export default class Workbook extends Component {
         this.state = {
             data: null,
         }
-        this.loadFile = this.loadFile.bind(this);
     }
 
-    loadFile() {
-        var dialog = require('electron').remote.dialog;
-        
-        var o = dialog.showOpenDialog({ properties: ['openFile'] });
-        var wb = XLSX.readFile(o[0]);
-
-        var sheets = [];
-
-        wb.SheetNames.forEach(function(sheetName) {
-			sheets.push(
-                XLSX.utils.sheet_to_json(
-                    wb.Sheets[sheetName],
-                    {range: 1}
-                )
-            )
-		});
-
-        this.setState({data: sheets});
+    componentDidMount() {
+        fetch('http://localhost:8080/api/items')
+        .then((response) => {
+            return response.json();
+        }).then(data => {
+            this.setState({data});
+        });
     }
 
     render() {
-        var sheets;
         if (this.state.data) {
-            sheets = this.state.data.map( (s, i) => {
-                var rows;
-                console.log(s);
+            // console.log(this.state.data);
+            return (
+                <div id="loader">
+                    <h3>Workbook Inspector</h3>
 
-                rows = s.map( (r, i) => {
-                    return (
-                        <div key={i} id={r.Name} >
-                            <h4>{r.Code} - {r.Name}</h4>
-                            <p>
-                                Usage: {r.Usage}<br/>
-                                Unit: {r.Unit}<br/>
-                                Par: {r.Par}
-                            </p>
-                        </div>   
-                    );
-                });
-                
-                switch (i) {
-                    case 0:
-                        return (
-                            <div key={i}>
-                                <h4>
-                                    Frozen
-                                </h4>
-                                {rows}
-                            </div>
-                        );
-                        break;
-                    case 1:
-                        return (
-                            <div key={i}>
-                                <h4>
-                                    Refrigerated
-                                </h4>
-                                {rows}
-                            </div>
-                        );
-                        break;
-                    case 2:
-                        return (
-                            <div key={i}>
-                                <h4>
-                                    Dry Goods
-                                </h4>
-                                {rows}
-                            </div>
-                        );
-                        break;
-                    case 3:
-                        return (
-                            <div key={i}>
-                                <h4>
-                                    Non Foods
-                                </h4>
-                                {rows}
-                            </div>
-                        );
-                        break;
-                    default:
-                        break;
-                }
-                
-            });
+                    <table style={{"width": "100%"}}>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Par</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.data.map((d, i) => {
+                                return(
+                                    <tr key={i}>
+                                        <td>{d.code}</td>
+                                        <td>{d.name}</td> 
+                                        <td>{d.par}</td>
+                                    </tr>
+                                )  
+                            })}
+                        </tbody>
+                    </table>
+
+                    {/* <Inspector data={this.state.data} /> */}
+                </div>
+            );
         }
         return(
             <div id="loader">
-                <h3>Workbook Loader</h3>
-                
-                <button onClick={() => this.loadFile()}>
-                    Load Data
-                </button>       
-                {sheets}
+                <h3>Workbook Inspector</h3>
             </div>
-        )
+        );
     }
 }
 

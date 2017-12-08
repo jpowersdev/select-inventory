@@ -21,23 +21,6 @@ export default class Template extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // componentDidMount() {
-    //     var wb = XLSX.readFile("/Users/jon/dev/select/inventory/node/select-inventory/data/Order_Template.xlsx");
-        
-    //     var sheets = [];
-
-    //     wb.SheetNames.forEach(function(sheetName) {
-    //         sheets.push(
-    //             XLSX.utils.sheet_to_json(
-    //                 wb.Sheets[sheetName],
-    //                 {range: 1}
-    //             )
-    //         )
-    //     });
-
-    //     this.setState({data: sheets});
-    // }
-
     loadFile() {
         // PROD
         // var dialog = require('electron').remote.dialog;
@@ -99,7 +82,7 @@ export default class Template extends Component {
         if (this.state.data) {
             return(
                 <div id="loader">
-                    <h3>Workbook Loader</h3>
+                    <h3>Template Uploader</h3>
 
                     <Inspector data={this.state.sheets} />
 
@@ -111,7 +94,7 @@ export default class Template extends Component {
         }
         return(
             <div id="loader">
-                <h3>Workbook Loader</h3>
+                <h3>Template Uploader</h3>
                 
                 <button onClick={() => this.loadFile()}>
                     Load Data

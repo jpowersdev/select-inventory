@@ -13,11 +13,7 @@ html {
     height: 100%;
 }
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin: auto;
+    overflow: hidden;
 }
 #app {
     color: #2c3e50;
@@ -29,13 +25,64 @@ body {
 #app p {
     text-align: justify;
 }
+.container {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+.sidebar {
+    width: 30%;
+    height: 600px;
+    float: left;
+}
+.sidebar a {
+    text-align: left;
+    color: rgba(45,45,45,0.8);
+}
+.sidebar h2 a {
+    text-decoration: none;
+    color: rgba(0,0,0,0.8);
+    text-align: left;
+}
+.sidebar h3 {
+    text-align: left;
+    padding-left: 30px;
+    color: rgba(30,30,30,0.85);
+}
+.sidebar ul li {
+    text-align: left;
+    padding-left: 60px;
+}
+.body {
+    width: 70%;
+    left: 30%;
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    margin: auto;
+}
 #loader {
     margin-top: 5%;
     margin-bottom: 5%;
     max-height: 90%;
+    vertical-align: top;
 }
 #workbook {
     vertical-align: top;
     max-height: 90%;
     overflow-y: scroll;
+}
+#workbook tbody {
+    overflow-y: scroll;
+}
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+ul .sublist {
+    line-height: normal;
+}
+li a {
+    text-decoration: none;
 }
