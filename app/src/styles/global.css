@@ -61,6 +61,7 @@ body {
     justify-content: center;
     height: 600px;
     margin: auto;
+    overflow: scroll;
 }
 #loader {
     margin-top: 5%;
