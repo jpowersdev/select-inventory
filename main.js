@@ -41,7 +41,7 @@ ipc.on('get', function(event, arg) {
 ipc.on('post', function(event, arg) {
     switch(arg.type) {
         case 'itemPurchase':
-            DB.postItemPurchase(event, arg.data, date)
+            DB.postItemPurchase(event, arg.data, arg.date)
             // console.log(arg.data[0]);
             break;
     }

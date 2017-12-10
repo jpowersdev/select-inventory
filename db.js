@@ -9,11 +9,12 @@ const DB = {
         mongoose.connect('localhost:27017/select-inventory');
         
         Item.find(function(err, items) {
-            if (err)
+            if (err) {
                 console.log(err);
                 event.sender.send('error', err);
-            //responds with a json object of our database items.
-            event.sender.send('data', items);
+            } else {
+                event.sender.send('data', items);
+            }
         });
     },
 
@@ -69,21 +70,12 @@ const DB = {
         var final = [].concat.apply([],itemList);
         console.log(final);
         
-        // ItemPurchase.collection.insertMany(final)
-        //     .then(function(docs) {
-        //         res.json(docs);
-        //     }).catch(function(err) {
-        //         res.send(err);
-        //     });
-
-        // console.log(final);
-
-        // ItemPurchase.collection.insertMany(final)
-        // .then(function(docs) {
-        //     res.json(docs);
-        // }).catch(function(err) {
-        //     res.send(err);
-        // });
+        ItemPurchase.collection.insertMany(final)
+            .then(function(docs) {
+                event.sender.send(docs);
+            }).catch(function(err) {
+                event.sender.send(err);
+            });
     }
 }
 

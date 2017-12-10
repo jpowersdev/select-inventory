@@ -10,18 +10,15 @@ export default class ItemPurchase extends Component {
     constructor() {
         super();
         this.state = {
-            data: null
+            data: null,
+            date: ''
         }
         this.loadFile = this.loadFile.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {        
-        // ipc.on('data', (event, data) => {
-        //     // console.log(data);
-        //     that.setState({data});
-        // })
-
         ipc.on('response', (event, arg) => {
             console.log(arg);
         })
@@ -33,12 +30,27 @@ export default class ItemPurchase extends Component {
 
     loadFile() {
         // PROD
-        var dialog = require('electron').remote.dialog;
+        // var dialog = require('electron').remote.dialog;
         
-        var o = dialog.showOpenDialog({ properties: ['openFile'] });
-        console.log(o);
-        var wb = XLSX.readFile(o[0]);
+        // var o = dialog.showOpenDialog({ properties: ['openFile'] });
+        // var wb = XLSX.readFile(o[0]);
 
+        // var data = [];
+
+        // wb.SheetNames.forEach(function(sheetName) {
+		// 	data.push(
+        //         XLSX.utils.sheet_to_json(
+        //             wb.Sheets[sheetName],
+        //             {range: 1}
+        //         )
+        //     )
+        // });
+
+        // this.setState({data});
+
+        // DEV
+        var wb = XLSX.readFile("/Users/jon/Dropbox/Jon Powers/Inventory/Order History/Order 12-10-17.xlsx");
+        
         var data = [];
 
         wb.SheetNames.forEach(function(sheetName) {
@@ -49,40 +61,20 @@ export default class ItemPurchase extends Component {
                 )
             )
         });
-        
-        console.log(wb.Props.Title);
 
         this.setState({data});
+    }
 
-        // DEV
-        // var wb = XLSX.readFile("/Users/jon/dev/select/inventory/node/select-inventory/data/Order_Template.xlsx");
-        
-        // var sheetList = [];
-
-        // wb.SheetNames.forEach(function(sheetName) {
-        //     sheetList.push(
-        //         XLSX.utils.sheet_to_json(
-        //             wb.Sheets[sheetName],
-        //             {range: 1}
-        //         )
-        //     )
-        // });
-        // 
-        // this.setState({
-        //     data: sheetList,
-        //     sheets: {
-        //         frozen: sheetList[0],
-        //         refrigerated: sheetList[1],
-        //         dry: sheetList[2],
-        //         paper: sheetList[3]
-        //     }
-        // });
+    handleChange(event) {
+        this.setState({date: event.target.value});
+        console.log(event.target.value)
     }
 
     handleSubmit(){ 
         ipc.send('post', {
             type: 'itemPurchase',
-            data: this.state.data
+            data: this.state.data,
+            date: this.state.date
         });
         
         // fetch('http://localhost:8080/api/items', {
@@ -100,6 +92,16 @@ export default class ItemPurchase extends Component {
                     <h3>Template Uploader</h3>
 
                     <Inspector data={this.state.data} />
+                    
+                    <form>
+                        <h3>Date of Order:</h3>
+                        <input 
+                            type="date" 
+                            name="orderDate" 
+                            value={this.state.date} 
+                            onChange={this.handleChange} 
+                        />
+                    </form>
 
                     <button onClick={() => this.handleSubmit()}>
                         Add to Database
