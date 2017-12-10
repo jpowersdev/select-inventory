@@ -15,6 +15,75 @@ const DB = {
             //responds with a json object of our database items.
             event.sender.send('data', items);
         });
+    },
+
+    postItemPurchase (event, data, date) {
+        mongoose.connect('localhost:27017/select-inventory');
+
+        var itemList = [];
+        
+        itemList.push(
+            data[0].map((v) => {
+                return new ItemPurchase({
+                    code: v.Code,
+                    name: v.Name,
+                    quantity: v.Quantity,
+                    date: date
+                });
+            })
+        );
+
+        itemList.push(
+            data[1].map((v) => {
+                return new ItemPurchase({
+                    code: v.Code,
+                    name: v.Name,
+                    quantity: v.Quantity,
+                    date: date
+                });
+            })
+        );
+
+        itemList.push(
+            data[2].map((v) => {
+                return new ItemPurchase({
+                    code: v.Code,
+                    name: v.Name,
+                    quantity: v.Quantity,
+                    date: date
+                });
+            })
+        );
+
+        itemList.push(
+            data[3].map((v) => {
+                return new ItemPurchase({
+                    code: v.Code,
+                    name: v.Name,
+                    quantity: v.Quantity,
+                    date: date
+                });
+            })
+        );
+
+        var final = [].concat.apply([],itemList);
+        console.log(final);
+        
+        // ItemPurchase.collection.insertMany(final)
+        //     .then(function(docs) {
+        //         res.json(docs);
+        //     }).catch(function(err) {
+        //         res.send(err);
+        //     });
+
+        // console.log(final);
+
+        // ItemPurchase.collection.insertMany(final)
+        // .then(function(docs) {
+        //     res.json(docs);
+        // }).catch(function(err) {
+        //     res.send(err);
+        // });
     }
 }
 

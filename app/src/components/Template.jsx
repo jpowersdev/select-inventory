@@ -4,6 +4,7 @@ import styles from '../styles/local.css'
 import XLSX from 'xlsx'
 import fs from 'fs'
 import Inspector from 'react-inspector'
+var ipc = require('electron').ipcRenderer;
 
 export default class Template extends Component {
     constructor() {
@@ -19,6 +20,17 @@ export default class Template extends Component {
         }
         this.loadFile = this.loadFile.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {        
+        ipc.on('data', (event, data) => {
+            // console.log(data);
+            that.setState({data});
+        })
+
+        ipc.on('error', (event, arg) => {
+            console.log(arg);
+        })
     }
 
     loadFile() {
@@ -69,6 +81,11 @@ export default class Template extends Component {
 
     handleSubmit(){ 
         console.log(this.state.sheets)
+
+        ipc.send('post', {
+            type: 'itemPurchase',
+            data: this.state.sheets
+        });
         
         fetch('http://localhost:8080/api/items', {
             method: 'post',

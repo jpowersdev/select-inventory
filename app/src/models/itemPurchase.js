@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var ItemPurchaseSchema = new Schema({
     code: {type: String, required: true},
+    name: {type: String, required: true},
     quantity: {type: Number, required: true},
     date: {type: Date, default: Date.now}
 });

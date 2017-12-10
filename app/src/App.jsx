@@ -4,6 +4,7 @@ import {} from './styles/global.css'
 
 import Workbook from './components/Workbook.jsx'
 import Template from './components/Template.jsx'
+import ItemPurchase from './components/ItemPurchase.jsx'
 
 class NavSidebar extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class NavSidebar extends React.Component {
                 </ul>
                 <h3>Order</h3>
                 <ul className="sublist">
-                    <li><a href="#" onClick={() => this.props.changePage('workbook')}>Workbook</a></li>
+                    <li><a href="#" onClick={() => this.props.changePage('itemPurchase')}>Item Purchase</a></li>
                     <li><a href="#" onClick={() => this.props.changePage('template')}>Template</a></li>
                 </ul>
                 <h3>Shipment</h3>
@@ -64,6 +65,7 @@ export default class App extends Component {
                     <div>
                         {this.state.page == 'workbook' ? <Workbook /> : <span/>}
                         {this.state.page == 'template' ? <Template /> : <span/>}
+                        {this.state.page == 'itemPurchase' ? <ItemPurchase /> : <span/>}
                     </div>
                 </div>
             </div>

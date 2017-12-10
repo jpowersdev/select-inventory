@@ -32,6 +32,7 @@ ipc.on('get', function(event, arg) {
     switch(arg) {
         case "items":
             DB.getItems(event);
+            break;
             // console.log(db);
             // event.sender.send('data', db);//DB.getItems());
     }
@@ -40,7 +41,9 @@ ipc.on('get', function(event, arg) {
 ipc.on('post', function(event, arg) {
     switch(arg.type) {
         case 'itemPurchase':
-            DB.postItemPurchase(event, arg.data)
+            DB.postItemPurchase(event, arg.data, date)
+            // console.log(arg.data[0]);
+            break;
     }
 })
 
