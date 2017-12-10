@@ -4,6 +4,10 @@ var Item = require('./app/src/models/item');
 var ItemCount = require('./app/src/models/itemCount');
 var ItemPurchase = require('./app/src/models/itemPurchase');
 
+function isInDateArray(array, value) {
+    return !!array.find(item => {return item.getTime() == value.getTime()});
+  }
+
 const DB = {
     getItems (event) {
         mongoose.connect('localhost:27017/select-inventory');
@@ -13,7 +17,39 @@ const DB = {
                 console.log(err);
                 event.sender.send('error', err);
             } else {
-                event.sender.send('data', items);
+                event.sender.send('itemList', items);
+            }
+        });
+    },
+
+    getItemPurchases (event) {
+        mongoose.connect('localhost:27017/select-inventory');
+        
+        ItemPurchase.find(function(err, items) {
+            if (err) {
+                console.log(err);
+                event.sender.send('error', err);
+            } else {
+                event.sender.send('itemPurchaseList', items);
+            }
+        });
+    },
+
+    getOrderDates (event) {
+        mongoose.connect('localhost:27017/select-inventory');
+        
+        ItemPurchase.find(function(err, purchases) {
+            if (err) {
+                console.log(err);
+                event.sender.send('error', err);
+            } else {
+                var dateList = [];
+                purchases.map(p => {
+                    if (!isInDateArray(dateList, p.date)){
+                        dateList.push(p.date);
+                    } 
+                })
+                event.sender.send('dateList', dateList); //.filter((v, i, a) => a.indexOf(v) === i));
             }
         });
     },

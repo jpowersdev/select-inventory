@@ -9,7 +9,7 @@ export default class Workbook extends Component {
     constructor() {
         super();
         this.state = {
-            data: null,
+            itemList: null,
         }
     }
 
@@ -18,9 +18,9 @@ export default class Workbook extends Component {
 
         ipc.send('get', 'items');
 
-        ipc.on('data', (event, data) => {
+        ipc.on('itemList', (event, itemList) => {
             // console.log(data);
-            that.setState({data});
+            that.setState({itemList});
         })
 
         ipc.on('error', (event, arg) => {
@@ -36,8 +36,8 @@ export default class Workbook extends Component {
     }
 
     render() {
-        if (this.state.data) {
-            console.log(this.state.data);
+        if (this.state.itemList) {
+            console.log(this.state.itemList);
             return (
                 <div id="workbook">
                     <h3>Workbook Inspector</h3>
@@ -51,7 +51,7 @@ export default class Workbook extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.data.map((d, i) => {
+                            {this.state.itemList.map((d, i) => {
                                 var doc = d._doc;
                                 return(
                                     <tr key={i}>

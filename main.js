@@ -8,7 +8,7 @@ const DB = require('./db')
 // Let electron reloads by itself when webpack watches changes in ./app/
 // require('electron-reload')(__dirname)
 
-require('electron-reload')(`${__dirname}/app`, {
+require('electron-reload')(`${__dirname}/app/build`, {
     electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
   });
 
@@ -35,6 +35,12 @@ ipc.on('get', function(event, arg) {
             break;
             // console.log(db);
             // event.sender.send('data', db);//DB.getItems());
+        case "itemPurchases":
+            DB.getItemPurchases(event);
+            break;
+        case "orderDates":
+            DB.getOrderDates(event);
+            break;
     }
 })
 
