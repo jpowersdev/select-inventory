@@ -1,54 +1,72 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route,
-    Link
-  } from 'react-router-dom'
 import {} from './styles/global.css'
 
 import Workbook from './components/Workbook.jsx'
 import Template from './components/Template.jsx'
 
-// const logos = [
-//     require('./assets/electron.png'),
-//     require('./assets/react.png'),
-//     require('./assets/webpack.png')
-// ]
-
-const NavSidebar = () => (
-    <div>
-        <h2><Link to="/">Select Inventory</Link></h2>
-        <h3>Count</h3>
-        <h3>Order</h3>
-        <ul className="sublist">
-            <li><Link to="/workbook">Workbook</Link></li>
-            <li><Link to="/template">Template</Link></li>
-        </ul>
-        <h3>Shipment</h3>
-        <h3>Report</h3>
-    </div>
-);
+class NavSidebar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div>
+                <h2>Select Inventory</h2>
+                <h3>Count</h3>
+                <ul className="sublist">
+                    <li><a href="#" onClick={() => this.props.changePage('workbook')}>Workbook</a></li>
+                    <li><a href="#" onClick={() => this.props.changePage('template')}>Template</a></li>
+                </ul>
+                <h3>Order</h3>
+                <ul className="sublist">
+                    <li><a href="#" onClick={() => this.props.changePage('workbook')}>Workbook</a></li>
+                    <li><a href="#" onClick={() => this.props.changePage('template')}>Template</a></li>
+                </ul>
+                <h3>Shipment</h3>
+                <ul className="sublist">
+                    <li><a href="#" onClick={() => this.props.changePage('workbook')}>Workbook</a></li>
+                    <li><a href="#" onClick={() => this.props.changePage('template')}>Template</a></li>
+                </ul>
+                <h3>Report</h3>
+                <ul className="sublist">
+                    <li><a href="#" onClick={() => this.props.changePage('workbook')}>Item Analysis</a></li>
+                    <li><a href="#" onClick={() => this.props.changePage('template')}>Order Analysis</a></li>
+                </ul>
+            </div>
+        );
+    }
+}
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            page: 'workbook'
+        };
+        this.changePage = this.changePage.bind(this);
+    }
+
+    changePage(page) {
+        this.setState({page})
+    }
+
     render() {
         const Index = () => (
             <div></div>
         )
         return (
-            <Router>
-                <div className="container">
-                    <div className="sidebar">
-                        <NavSidebar/>
-                    </div>
-                    <div className="body">
-                        <Route exact path="/" component={Index}/>
-                        <Route path="/workbook" component={Workbook}/>
-                        <Route path="/template" component={Template}/>
+            <div className="container">
+                <div className="sidebar">
+                    <NavSidebar changePage={this.changePage}/>
+                </div>
+                <div className="body">
+                    <div>
+                        {this.state.page == 'workbook' ? <Workbook /> : <span/>}
+                        {this.state.page == 'template' ? <Template /> : <span/>}
                     </div>
                 </div>
-            </Router>
+            </div>
         )
     }
 }

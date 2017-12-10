@@ -81,7 +81,7 @@ export default class Template extends Component {
     render() {
         if (this.state.data) {
             return(
-                <div id="loader">
+                <div id="template">
                     <h3>Template Uploader</h3>
 
                     <Inspector data={this.state.sheets} />
@@ -93,7 +93,7 @@ export default class Template extends Component {
             )
         }
         return(
-            <div id="loader">
+            <div id="template">
                 <h3>Template Uploader</h3>
                 
                 <button onClick={() => this.loadFile()}>

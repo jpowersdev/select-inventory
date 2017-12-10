@@ -17,12 +17,9 @@ let mainWindow
 
 app.on('ready', () => {
 
-    let mainWindow = new BrowserWindow({width: 800, height: 600})
+    let mainWindow = new BrowserWindow({width: 1200, height: 600})
 
-    setTimeout(() => {
-        mainWindow.loadURL(`file:///${__dirname}/app/index.html`);
-      }, 2000);
-    // mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
     // mainWindow.toggleDevTools();
 
 })
@@ -37,6 +34,13 @@ ipc.on('get', function(event, arg) {
             DB.getItems(event);
             // console.log(db);
             // event.sender.send('data', db);//DB.getItems());
+    }
+})
+
+ipc.on('post', function(event, arg) {
+    switch(arg.type) {
+        case 'itemPurchase':
+            DB.postItemPurchase(event, arg.data)
     }
 })
 

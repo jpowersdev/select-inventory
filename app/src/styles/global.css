@@ -27,14 +27,15 @@ body {
 }
 .container {
     display: inline-block;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: auto;
 }
 .sidebar {
-    width: 30%;
-    height: 600px;
+    width: 29vw;
+    height: 97vh;
     float: left;
+    border-right: 3px solid gray;
 }
 .sidebar a {
     text-align: left;
@@ -55,28 +56,26 @@ body {
     padding-left: 60px;
 }
 .body {
-    width: 70%;
-    left: 30%;
+    width: 70vw;
+    left: 30vw;
     display: flex;
     justify-content: center;
     height: 600px;
     margin: auto;
     overflow: scroll;
 }
-#loader {
-    margin-top: 5%;
-    margin-bottom: 5%;
-    max-height: 90%;
+#workbook {
+    margin-bottom: 15%;
     vertical-align: top;
 }
-#workbook {
+/* #workbook {
     vertical-align: top;
     max-height: 90%;
     overflow-y: scroll;
 }
 #workbook tbody {
     overflow-y: scroll;
-}
+} */
 ul {
     list-style: none;
     padding-left: 0;

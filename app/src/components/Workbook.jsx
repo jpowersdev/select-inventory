@@ -2,7 +2,7 @@ import React, {Component}  from 'react'
 import { dialog } from 'electron';
 import styles from '../styles/local.css'
 import XLSX from 'xlsx'
-import Inspector from 'react-inspector'
+// import Inspector from 'react-inspector'
 var ipc = require('electron').ipcRenderer;
 
 export default class Workbook extends Component {
@@ -39,7 +39,7 @@ export default class Workbook extends Component {
         if (this.state.data) {
             console.log(this.state.data);
             return (
-                <div id="loader">
+                <div id="workbook">
                     <h3>Workbook Inspector</h3>
 
                     <table style={{"width": "100%"}}>
@@ -67,7 +67,7 @@ export default class Workbook extends Component {
             );
         }
         return(
-            <div id="loader">
+            <div id="workbook">
                 <h3>Workbook Inspector</h3>
             </div>
         );
