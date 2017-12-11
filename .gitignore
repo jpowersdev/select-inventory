@@ -41,3 +41,4 @@ jspm_packages
 
 # Protected Info
 *.xlsx
+data/db
