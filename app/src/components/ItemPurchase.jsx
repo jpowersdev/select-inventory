@@ -29,27 +29,14 @@ export default class ItemPurchase extends Component {
     }
 
     loadFile() {
-        // PROD
-        // var dialog = require('electron').remote.dialog;
-        
-        // var o = dialog.showOpenDialog({ properties: ['openFile'] });
-        // var wb = XLSX.readFile(o[0]);
-
-        // var data = [];
-
-        // wb.SheetNames.forEach(function(sheetName) {
-		// 	data.push(
-        //         XLSX.utils.sheet_to_json(
-        //             wb.Sheets[sheetName],
-        //             {range: 1}
-        //         )
-        //     )
-        // });
-
-        // this.setState({data});
-
         // DEV
-        var wb = XLSX.readFile("/Users/jon/Dropbox/Jon Powers/Inventory/Order History/Order 12-10-17.xlsx");
+        // var wb = XLSX.readFile("/Users/jon/Dropbox/Jon Powers/Inventory/Order History/Order 12-10-17.xlsx");
+
+        // PROD
+        var dialog = require('electron').remote.dialog;
+        
+        var o = dialog.showOpenDialog({ properties: ['openFile'] });
+        var wb = XLSX.readFile(o[0]);
         
         var data = [];
 

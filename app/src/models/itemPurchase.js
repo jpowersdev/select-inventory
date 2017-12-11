@@ -9,8 +9,4 @@ var ItemPurchaseSchema = new Schema({
     date: {type: Date, default: Date.now}
 });
 
-// ItemPurchaseSchema.query.getDates = function() {
-//     return this.find(); //.select('date').filter((v, i, a) => a.indexOf(v) === i);
-// };
-
 module.exports = mongoose.model('ItemPurchase', ItemPurchaseSchema);
